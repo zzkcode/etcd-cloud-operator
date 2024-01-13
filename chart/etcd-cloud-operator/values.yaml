@@ -9,8 +9,8 @@ service:
   type: ClusterIP
 
 persistence:
-  enabled: true
-  storageClass: "standard"
+  enabled: false
+  storageClass: "local"
   accessModes:
    - ReadWriteOnce
   size: 4Gi
@@ -27,7 +27,7 @@ setupProbe:
 # ECO configuration, see config.example.yaml for option details
 config:
   checkInterval: 15s
-  unhealthyMemberTTL: 5m
+  unhealthyMemberTTL: 3m
   etcd:
     dataDir: /var/lib/etcd
     clientTransportSecurity:
@@ -37,7 +37,7 @@ config:
       trustedCAFile: ""
       clientCertAuth: false
     peerTransportSecurity:
-      autoTLS: true
+      autoTLS: false
       certFile: ""
       keyFile: ""
       trustedCaFile: ""

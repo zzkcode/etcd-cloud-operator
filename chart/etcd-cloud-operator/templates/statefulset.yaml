@@ -18,6 +18,8 @@ spec:
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
+      annotations:
+        timestamp: "{{ now | date "20060102150405" }}"
       labels:
         app.kubernetes.io/name: {{ include "etcd-cloud-operator.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
@@ -123,7 +125,9 @@ spec:
           storage: {{ .Values.persistence.size | quote }}
 {{- else }}
       - name: data
-        emptyDir: {}
+        # emptyDir: {}
+        emptyDir:
+          medium: Memory
 {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
